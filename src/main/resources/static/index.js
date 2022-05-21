@@ -12,11 +12,18 @@ function uploadFile(file) {
         .then(response => response.json())
         .then(data => {
             try {
-                const uploadList = document.querySelector("#uploadList");
-                uploadList.insertAdjacentHTML("beforeend",
+                const cardGroup = document.querySelector("#cardGroup");
+                cardGroup.insertAdjacentHTML("beforeend",
                     `
-                            <div class="upload-list__item">
-                                <img src="${data.url}" title="${data.fileName}" alt="..." width="500px">
+                            <div class="card">
+                                <img src="${data.url}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${data.fileName}</h5>
+                                    <p class="card-text">s content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
                             </div>
                         `)
 
@@ -32,12 +39,19 @@ function getUploadList() {
         .then(response => response.json())
         .then(data => {
             try {
-                const uploadList = document.querySelector("#uploadList");
+                const cardGroup = document.querySelector("#cardGroup");
                 data.forEach(img => {
-                    uploadList.insertAdjacentHTML("beforeend",
+                    cardGroup.insertAdjacentHTML("beforeend",
                         `
-                            <div class="upload-list__item">
-                                <img src="${img.url}" title="${img.fileName}" alt="..." width="500px">
+                            <div class="card">
+                                <img src="${img.url}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${img.fileName}</h5>
+                                    <p class="card-text">s content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
                             </div>
                         `)
                 });

@@ -1,5 +1,6 @@
 package io.melakuera.fileuploaddownloaddemo;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +18,9 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,12 +39,19 @@ public class FileStorageService {
 
 	public ResponseEntity<?> saveFile(MultipartFile file) {
 		try {
-			Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+			String fileCode = RandomStringUtils.random(10, true, true);
+//			Files.copy(
+//					file.getInputStream(),
+//					root.resolve(fileCode+"-"+file.getOriginalFilename()),
+//					StandardCopyOption.REPLACE_EXISTING
+//			);
+			file.transferTo(root.resolve(fileCode+"-"+file.getOriginalFilename()));
 
 			Attachment attachment = new Attachment();
 			attachment.setFileName(file.getOriginalFilename());
 			attachment.setUrl(MvcUriComponentsBuilder.fromMethodName(
-					FileStorageResource.class, "getFile", file.getOriginalFilename()).build().toString());
+					FileStorageResource.class,
+					"getFile", file.getOriginalFilename()).build().toString());
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(attachment);
 		} catch (Exception e) {
