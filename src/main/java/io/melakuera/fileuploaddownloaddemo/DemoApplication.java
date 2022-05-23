@@ -69,6 +69,7 @@ public class DemoApplication implements WebMvcConfigurer{
 				.build();
 	}*/
 
+	// Этакий UserDetailService
 	/*@Bean
 	public ClientRegistrationRepository clientRegistrationRepository() {
 		return new InMemoryClientRegistrationRepository(clientRegistration1());
