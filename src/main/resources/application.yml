@@ -1,20 +1,15 @@
 spring:
-    servlet:
-        multipart:
-            enabled: true
-            max-file-size: 1MB
-            max-request-size: 1MB
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 1MB
 
-    mustache:
-        suffix: .html
-
-    security:
-        oauth2:
-            client:
-                registration:
-                    github:
-                        client-id: 6a3a0764dd29ce230029
-                        client-secret: ${CLIENT_SECRET}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/test/protocol/openid-connect/certs
 
 server:
-    port: 9000
+  port: 9000
