@@ -1,0 +1,20 @@
+spring:
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 1MB
+            max-request-size: 1MB
+
+    mustache:
+        suffix: .html
+
+    security:
+        oauth2:
+            client:
+                registration:
+                    github:
+                        client-id: 6a3a0764dd29ce230029
+                        client-secret: ${CLIENT_SECRET}
+
+server:
+    port: 9000
